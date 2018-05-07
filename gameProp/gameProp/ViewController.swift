@@ -9,11 +9,25 @@
 import UIKit
 import Toast_Swift
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, UITableViewDataSource {
+    
+    @IBOutlet weak var tableFixa: UITableView!
+    @IBOutlet weak var tableVariavel: UITableView!
+    var investments = [Investment]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        tableFixa.dataSource = self
+        tableVariavel.dataSource = self
+        investments = []
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return investments.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
     }
     
