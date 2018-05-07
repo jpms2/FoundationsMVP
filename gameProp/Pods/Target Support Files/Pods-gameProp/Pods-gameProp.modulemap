@@ -1,0 +1,6 @@
+framework module Pods_gameProp {
+  umbrella header "Pods-gameProp-umbrella.h"
+
+  export *
+  module * { export * }
+}
