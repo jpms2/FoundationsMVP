@@ -13,11 +13,13 @@ class Investment: NSObject {
     var image: String
     var rendimento: String
     var investido: Double
+    var receiptDay: Int
     
-    init(_ image:String,_ rendimento:String,_ investido:Double) {
+    init(_ image:String,_ rendimento:String,_ investido:Double, _ receiptDay:Int) {
         self.image = image
         self.rendimento = rendimento
         self.investido = investido
+        self.receiptDay = receiptDay
     }
     
 }

@@ -9,26 +9,20 @@
 import UIKit
 import Toast_Swift
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController {
     
     @IBOutlet weak var tableFixa: UITableView!
-    @IBOutlet weak var tableVariavel: UITableView!
     var investments = [Investment]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        tableFixa.dataSource = self
-        tableVariavel.dataSource = self
-        investments = []
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return investments.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let investment1 = Investment("foto", "rendimento", 50.0, 1)
+        let investment2 = Investment("imagem", "rendimento", 50.0, 1)
+        let investment3 = Investment("imagem", "rendimento", 50.0, 1)
+        let investment4 = Investment("imagem", "rendimento", 50.0, 1)
+        investments = [investment1,investment2,investment3, investment4]
     }
     
     func makeToast(_ text:String,_ posX:Int,_ posY:Int){
@@ -47,8 +41,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         })
     }
     
+    
+    
     override func viewDidAppear(_ animated: Bool) {
-        makeToast("Comece com a poupança!", 100, 100)
+        makeToast("Comece com a poupança!", 210, 220)
     }
 
     override func didReceiveMemoryWarning() {
