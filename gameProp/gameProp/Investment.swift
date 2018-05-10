@@ -10,12 +10,14 @@ import UIKit
 
 class Investment: NSObject {
 
+    var nome: String
     var image: String
-    var rendimento: String
-    var investido: Double
+    var rendimento: Double
+    var investido: Int
     var receiptDay: Int
     
-    init(_ image:String,_ rendimento:String,_ investido:Double, _ receiptDay:Int) {
+    init(_ nome:String,_ image:String,_ rendimento:Double,_ investido:Int, _ receiptDay:Int) {
+        self.nome = nome
         self.image = image
         self.rendimento = rendimento
         self.investido = investido

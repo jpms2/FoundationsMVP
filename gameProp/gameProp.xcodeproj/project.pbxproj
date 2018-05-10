@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E9F924FD34F7045D4F8ED46 /* Pods_gamePropTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 084F753480CDA96D44823552 /* Pods_gamePropTests.framework */; };
+		1057C5D920A4C505009C7A2C /* MakeInvestmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1057C5D820A4C505009C7A2C /* MakeInvestmentViewController.swift */; };
 		108C5F3820A3732F00F3F69D /* InvestmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108C5F3720A3732F00F3F69D /* InvestmentCollectionViewCell.swift */; };
 		1098D1CD20A0A35C0004BD4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1098D1CC20A0A35C0004BD4A /* AppDelegate.swift */; };
 		1098D1CF20A0A35C0004BD4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1098D1CE20A0A35C0004BD4A /* ViewController.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		084F753480CDA96D44823552 /* Pods_gamePropTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gamePropTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1057C5D820A4C505009C7A2C /* MakeInvestmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeInvestmentViewController.swift; sourceTree = "<group>"; };
 		108C5F3720A3732F00F3F69D /* InvestmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		1098D1C920A0A35C0004BD4A /* gameProp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameProp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1098D1CC20A0A35C0004BD4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				10A9BBF420A0ED8C008B2C9B /* Investment.swift */,
 				108C5F3720A3732F00F3F69D /* InvestmentCollectionViewCell.swift */,
 				1098D1CE20A0A35C0004BD4A /* ViewController.swift */,
+				1057C5D820A4C505009C7A2C /* MakeInvestmentViewController.swift */,
 				1098D1D020A0A35C0004BD4A /* Main.storyboard */,
 				1098D1D320A0A35D0004BD4A /* Assets.xcassets */,
 				1098D1D520A0A35D0004BD4A /* LaunchScreen.storyboard */,
@@ -383,6 +386,7 @@
 			files = (
 				1098D1CF20A0A35C0004BD4A /* ViewController.swift in Sources */,
 				108C5F3820A3732F00F3F69D /* InvestmentCollectionViewCell.swift in Sources */,
+				1057C5D920A4C505009C7A2C /* MakeInvestmentViewController.swift in Sources */,
 				1098D1CD20A0A35C0004BD4A /* AppDelegate.swift in Sources */,
 				10A9BBF520A0ED8C008B2C9B /* Investment.swift in Sources */,
 			);
