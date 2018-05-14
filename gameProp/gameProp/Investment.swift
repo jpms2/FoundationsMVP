@@ -11,17 +11,42 @@ import UIKit
 class Investment: NSObject {
 
     var nome: String
+    var nomeAbreviado :String
     var image: String
     var rendimento: Double
-    var investido: Int
-    var receiptDay: Int
+    var investido: Double
+    var rendido : Double
+    var firstTime = true
+    var locked = true
+    var tipoVariavel :Bool
     
-    init(_ nome:String,_ image:String,_ rendimento:Double,_ investido:Int, _ receiptDay:Int) {
+    init(_ nome:String,_ image:String,_ rendimento:Double,_ investido:Double, _ tipoVariavel:Bool) {
         self.nome = nome
+        self.nomeAbreviado = nome
         self.image = image
         self.rendimento = rendimento
         self.investido = investido
-        self.receiptDay = receiptDay
+        self.tipoVariavel = tipoVariavel
+        self.rendido = 0
+    }
+    init(_ nome:String,_ nomeAbreviado:String, _ image:String,_ rendimento:Double,_ investido:Double, _ tipoVariavel:Bool) {
+        self.nome = nome
+        self.nomeAbreviado = nomeAbreviado
+        self.image = image
+        self.rendimento = rendimento
+        self.investido = investido
+        self.tipoVariavel = tipoVariavel
+        self.rendido = 0
+    }
+    override init(){
+        nome = ""
+        nomeAbreviado = ""
+        image = ""
+        rendimento = 0
+        investido = 0
+        self.tipoVariavel = false
+        self.rendido = 0
+        
     }
     
 }

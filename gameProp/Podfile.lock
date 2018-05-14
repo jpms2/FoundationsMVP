@@ -5,7 +5,7 @@ DEPENDENCIES:
   - Toast-Swift (~> 3.0.1)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Toast-Swift
 
 SPEC CHECKSUMS:
@@ -13,4 +13,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 0cf0b438d619f2d0698aa303e97382045aa2f4df
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.2

@@ -14,24 +14,24 @@ class MakeInvestmentViewController: UIViewController {
     @IBOutlet weak var investmentName: UILabel!
     @IBOutlet weak var investmentYeld: UILabel!
     @IBOutlet weak var currentMoney: UILabel!
+    var investment:Investment = Investment()
     var firstTime = false
-    var invMoney = 0
-    var money = 0
-    var invName = ""
-    var invYeld = ""
+    var invMoney = 0.0
+    var money = 0.0
     var arrPos = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        investmentYeld.text = invYeld
-        investmentName.text = invName
-        invMoney = money
-        currentMoney.text = "$ \(money)"
+        investmentYeld.text = "\(String(format: "%.2f", investment.rendimento))%"
+        investmentName.text = "\(investment.nome)"
+        invMoney = money + investment.investido + investment.rendido
+        currentMoney.text = "$ \(Int(invMoney))"
         if (firstTime) {
             makeToast("Dica!", "Aqui você pode investir ou retirar seus investimentos")
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,21 +50,21 @@ class MakeInvestmentViewController: UIViewController {
     @IBAction func addMoney(_ sender: Any) {
         if((invMoney + 100) < money){
             invMoney += 100
-            currentMoney.text = "$ \(invMoney)"
+            currentMoney.text = "$ \(Int(invMoney))"
         }else{
             makeToast("Dica!", "Lembre de nunca investir tudo que tem, você tem contas para pagar no fim do mês!")
             invMoney = money
-            currentMoney.text = "$ \(invMoney)"
+            currentMoney.text = "$ \(Int(invMoney))"
         }
     }
     
     @IBAction func takeMoney(_ sender: Any) {
         if((invMoney - 100) >= 0){
             invMoney -= 100
-            currentMoney.text = "$ \(invMoney)"
+            currentMoney.text = "$ \(Int(invMoney))"
         }else{
             invMoney = 0
-            currentMoney.text = "$ \(invMoney)"
+            currentMoney.text = "$ \(Int(invMoney))"
         }
     }
     
