@@ -11,6 +11,11 @@ import Toast_Swift
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    @IBOutlet weak var popupView: UIView!
+    @IBOutlet weak var popupText: UILabel!
+    @IBOutlet weak var closePopup: UIButton!
+    
+    
     @IBOutlet weak var moneyLabel: UILabel!
     @IBOutlet weak var investmentsCollection: UICollectionView!
     var investments = [Investment]()
@@ -18,21 +23,73 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var clickedPos = 0
     var user = User()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    func initValues(){
         investmentsCollection.delegate = self
         investmentsCollection.dataSource = self
         money = user.money
         investments = user.investments
-  
         
         timer(3, #selector(creditRendaFixa))
         timer(1, #selector(creditRendaVariavel))
         timer(1, #selector(updateRendimento))
+        
+        popupView.alpha = 0
+        closePopup.alpha = 0
+        popupView.layer.cornerRadius = 20
+        money = user.money
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        initValues()
+        
+        let popup = Popup()
+        popup.makeToast(self, "Olá, bem vindo!", user.startText, position: .center, image: nil)
+        
+    }
+    
     func timer(_ interval:Int,_ selector: Selector){
         Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: selector, userInfo: nil, repeats: true)
+    }
+    
+    func tryNextLevel() {
+        if(investments[user.level].rendido >= user.objectives[user.level]){
+            user.updateLevel()
+            dalePopup()
+        }
+    }
+    
+    func dalePopup() {
+        var desc = "Agora você desbloqueou um novo investimento!"
+        
+        if(user.level == 2){
+            desc = user.ipcaSelic
+            popupText.frame.size = CGSize(width: popupText.frame.width, height: 366)
+            popupView.frame.size = CGSize(width: popupView.frame.width, height: 374)
+        }
+        else if (user.level == 4){
+            desc = user.rendaCompare
+            popupText.frame.size = CGSize(width: popupText.frame.width, height: 203)
+            popupView.frame.size = CGSize(width: popupView.frame.width, height: 217)
+        }
+        else{
+            popupText.frame.size = CGSize(width: popupText.frame.width, height: 94)
+            popupView.frame.size = CGSize(width: popupView.frame.width, height: 103)
+            
+        }
+        //let popup = Popup()
+        //popup.makeToast(self, "Parabéns, você passou de nível!!", desc, position: .center, image: nil)
+    
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
+            self.popupView.alpha = 1
+            self.closePopup.alpha = 1
+            self.popupText.text = desc
+            //self.objMoreView.hidden = false
+            // Show view with animation
+        }, completion: nil)
+        //let image = UIImage(named: "cancel")
+        //infoButton.setImage(image, for: UIControlState.normal)
     }
     
     @objc func creditRendaFixa(){
@@ -45,7 +102,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     @objc func creditRendaVariavel(){
         for investment in investments{
-            if(investment.tipoVariavel && investment.locked){
+            if(investment.tipoVariavel && !investment.locked){
                 investment.rendido += (investment.investido + investment.rendido)  * (investment.rendimento/100)
                 if(investment.nome == "Medcare"){
                     //print("\(investment.investido) - \(investment.rendido) - \(investment.rendimento/100)")
@@ -64,19 +121,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
         }
         investmentsCollection.reloadData()
+        
+        tryNextLevel()
     }
     
     
-    func makeToast(_ text:String,_ posX:Int,_ posY:Int){
-        let pos = CGPoint(x: posX, y: posY)
-        var style = ToastStyle()
-        //style.activitySize = size
-        style.displayShadow = true
-        style.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
-        ToastManager.shared.style = style
-        self.view.makeToast(text,duration: 10.0, point: pos, title: "Dica!", image: nil, completion: { didTap in
-        })
-    }
+
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -110,7 +160,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         clickedPos = indexPath.row
-        if(investments[clickedPos].locked){
+        if(!investments[clickedPos].locked){
             performSegue(withIdentifier: "mainToInvestments", sender: nil)
             
         }
@@ -135,6 +185,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let makeInvestment = segue.source as! MakeInvestmentViewController
         
         let investment = investments[makeInvestment.arrPos]
+        investment.firstTime = false
         
         let invMoney = makeInvestment.invMoney
         
@@ -160,6 +211,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
  
         moneyLabel.text = "$ \(Int(money))"
         investmentsCollection.reloadData()
+        
     }
+    
+    
+    @IBAction func onClosePopup(_ sender: Any) {
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
+            self.popupView.alpha = 0
+            self.closePopup.alpha = 0
+        }, completion: nil)
+    }
+    
+    
 }
 

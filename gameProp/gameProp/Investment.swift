@@ -19,8 +19,12 @@ class Investment: NSObject {
     var firstTime = true
     var locked = true
     var tipoVariavel :Bool
+    var tempoRendimento :Int
     
-    init(_ nome:String,_ image:String,_ rendimento:Double,_ investido:Double, _ tipoVariavel:Bool) {
+    var descricao = ""
+    var aprenda = ""
+    
+    init(_ nome:String,_ image:String,_ rendimento:Double,_ investido:Double, _ tipoVariavel:Bool,_ descricao:String,_ aprenda:String,_ tempoRendimento :Int) {
         self.nome = nome
         self.nomeAbreviado = nome
         self.image = image
@@ -28,8 +32,11 @@ class Investment: NSObject {
         self.investido = investido
         self.tipoVariavel = tipoVariavel
         self.rendido = 0
+        self.descricao = descricao
+        self.aprenda = aprenda
+        self.tempoRendimento = tempoRendimento
     }
-    init(_ nome:String,_ nomeAbreviado:String, _ image:String,_ rendimento:Double,_ investido:Double, _ tipoVariavel:Bool) {
+    init(_ nome:String,_ nomeAbreviado:String, _ image:String,_ rendimento:Double,_ investido:Double, _ tipoVariavel:Bool,_ descricao:String,_ aprenda:String,_ tempoRendimento :Int) {
         self.nome = nome
         self.nomeAbreviado = nomeAbreviado
         self.image = image
@@ -37,6 +44,9 @@ class Investment: NSObject {
         self.investido = investido
         self.tipoVariavel = tipoVariavel
         self.rendido = 0
+        self.descricao = descricao
+        self.aprenda = aprenda
+        self.tempoRendimento = tempoRendimento
     }
     override init(){
         nome = ""
@@ -46,6 +56,7 @@ class Investment: NSObject {
         investido = 0
         self.tipoVariavel = false
         self.rendido = 0
+        self.tempoRendimento = 0
         
     }
     

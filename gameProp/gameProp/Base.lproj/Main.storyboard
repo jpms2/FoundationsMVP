@@ -108,13 +108,38 @@
                                     <action selector="ClickedArea:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4mj-lh-BmJ"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QLA-Rz-bxe">
+                                <rect key="frame" x="26" y="109" width="321" height="103"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr6-lI-4Eu">
+                                        <rect key="frame" x="25" y="4" width="270" height="94"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.23591938788965716" blue="0.2048409250453056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGV-W4-u0N">
+                                <rect key="frame" x="316" y="71" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="cancel"/>
+                                <connections>
+                                    <action selector="onClosePopup:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ISN-Pp-By4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="closePopup" destination="fGV-W4-u0N" id="rJZ-mg-gQH"/>
                         <outlet property="investmentsCollection" destination="Yfw-YZ-Z7w" id="HSX-4a-aoR"/>
                         <outlet property="moneyLabel" destination="F37-Ak-Ief" id="pIx-s0-U3l"/>
+                        <outlet property="popupText" destination="hr6-lI-4Eu" id="2jb-Uk-Vt0"/>
+                        <outlet property="popupView" destination="QLA-Rz-bxe" id="kNF-wV-Mw5"/>
                         <segue destination="Wjj-gL-JY5" kind="show" identifier="mainToInvestments" id="B5C-TP-D6t"/>
                     </connections>
                 </viewController>
@@ -137,32 +162,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHr-O9-lY4">
-                                <rect key="frame" x="309" y="72" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="info"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="valor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="88i-PU-Syn">
-                                <rect key="frame" x="125" y="477" width="118" height="30"/>
+                                <rect key="frame" x="27" y="400" width="332" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f9z-Ue-CPQ">
-                                <rect key="frame" x="67" y="467" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHr-O9-lY4">
+                                <rect key="frame" x="309" y="72" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="minus"/>
+                                <state key="normal" title="Button" image="info"/>
                                 <connections>
-                                    <action selector="takeMoney:" destination="Wjj-gL-JY5" eventType="touchUpInside" id="Vp4-s9-bl8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2tS-Xl-tOz">
-                                <rect key="frame" x="251" y="467" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="plus"/>
-                                <connections>
-                                    <action selector="addMoney:" destination="Wjj-gL-JY5" eventType="touchUpInside" id="96x-gN-dyH"/>
+                                    <action selector="showInfo:" destination="Wjj-gL-JY5" eventType="touchUpInside" id="JzL-Bf-dy5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4C-Af-2wp">
@@ -205,19 +217,72 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Quantidade investida" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yof-29-uWS">
-                                <rect key="frame" x="80" y="406" width="211" height="28"/>
+                                <rect key="frame" x="88" y="343" width="211" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4YP-lf-Hc8">
+                                <rect key="frame" x="243" y="454" width="3" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.24884726055235218" blue="0.11822207909564231" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="3if-JM-bix">
+                                <rect key="frame" x="25" y="467" width="336" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="investmentSliderChange:" destination="Wjj-gL-JY5" eventType="valueChanged" id="VIz-1H-OSz"/>
+                                </connections>
+                            </slider>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJM-JP-O8t">
+                                <rect key="frame" x="27" y="110" width="322" height="517"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="howto" lineBreakMode="tailTruncation" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6TX-YF-Kd8">
+                                        <rect key="frame" x="21" y="293" width="277" height="216"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Descrição do investimento" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aW3-Ng-F3t">
+                                        <rect key="frame" x="21" y="22" width="277" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Invista de verdade" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XeU-kk-6dn">
+                                        <rect key="frame" x="21" y="250" width="277" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Descricao" lineBreakMode="tailTruncation" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXe-75-FNI">
+                                        <rect key="frame" x="23" y="68" width="277" height="96"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.041681021149214015" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="LCm-4z-ARU"/>
                     </view>
                     <connections>
+                        <outlet property="barraInitialPosSlider" destination="4YP-lf-Hc8" id="Bet-hS-W6e"/>
                         <outlet property="currentMoney" destination="88i-PU-Syn" id="pZd-U7-Va4"/>
+                        <outlet property="infoButton" destination="nHr-O9-lY4" id="i3c-eQ-a6X"/>
+                        <outlet property="infoHowToInvest" destination="6TX-YF-Kd8" id="hjz-yc-19x"/>
+                        <outlet property="infoText" destination="DXe-75-FNI" id="IaM-ba-oVf"/>
+                        <outlet property="investmentInfoPopup" destination="gJM-JP-O8t" id="vWT-iG-z2g"/>
                         <outlet property="investmentName" destination="HOP-kR-E2v" id="HIn-XL-cYU"/>
+                        <outlet property="investmentSlider" destination="3if-JM-bix" id="yrW-Pu-fu3"/>
                         <outlet property="investmentYeld" destination="kpf-3I-wvg" id="bA2-82-h0a"/>
                     </connections>
                 </viewController>
@@ -228,8 +293,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cancel" width="50" height="50"/>
         <image name="info" width="512" height="512"/>
-        <image name="minus" width="512" height="512"/>
-        <image name="plus" width="512" height="512"/>
     </resources>
 </document>

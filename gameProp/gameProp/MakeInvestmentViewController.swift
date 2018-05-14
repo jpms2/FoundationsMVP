@@ -10,15 +10,23 @@ import UIKit
 import Toast_Swift
 
 class MakeInvestmentViewController: UIViewController {
-
+    
+    @IBOutlet weak var infoText: UILabel!
+    @IBOutlet weak var infoHowToInvest: UILabel!
+    
+    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var investmentInfoPopup: UIView!
     @IBOutlet weak var investmentName: UILabel!
     @IBOutlet weak var investmentYeld: UILabel!
     @IBOutlet weak var currentMoney: UILabel!
+    @IBOutlet weak var investmentSlider: UISlider!
+    @IBOutlet weak var barraInitialPosSlider: UIView!
+    
     var investment:Investment = Investment()
-    var firstTime = false
     var invMoney = 0.0
     var money = 0.0
     var arrPos = 0
+    let user = User()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,56 +34,82 @@ class MakeInvestmentViewController: UIViewController {
         // Do any additional setup after loading the view.
         investmentYeld.text = "\(String(format: "%.2f", investment.rendimento))%"
         investmentName.text = "\(investment.nome)"
-        invMoney = money + investment.investido + investment.rendido
+        invMoney = investment.investido + investment.rendido
         currentMoney.text = "$ \(Int(invMoney))"
-        if (firstTime) {
-            makeToast("Dica!", "Aqui você pode investir ou retirar seus investimentos")
-        }
+        
+        handlePopupFirstTime()
+        setSlider()
+        arrangeBarraInitialPosSlider()
+        handleInvestmentPopup()
         
     }
-
+    func handleInvestmentPopup(){
+        investmentInfoPopup.layer.cornerRadius = 20
+        investmentInfoPopup.alpha = 0
+        infoText.text = "\(investment.descricao)"
+        infoHowToInvest.text = "\(investment.aprenda)"
+    }
+    
+    func arrangeBarraInitialPosSlider(){
+        barraInitialPosSlider.layer.cornerRadius = 20
+        let xPos = (investmentSlider.maximumValue > 0) ?
+            CGFloat( Float(investmentSlider.frame.origin.x) +
+                ((investmentSlider.value/investmentSlider.maximumValue) * Float(investmentSlider.frame.width)))
+            : investmentSlider.frame.origin.x
+        
+        barraInitialPosSlider.frame.origin = CGPoint(x: xPos, y: barraInitialPosSlider.frame.origin.y)
+    }
+    
+    func setSlider(){
+        investmentSlider.minimumValue = 0
+        investmentSlider.maximumValue = Float(money + investment.rendido + investment.investido)
+        investmentSlider.value = Float(investment.rendido + investment.investido)
+    }
+    
+    func handlePopupFirstTime(){
+        if (investment.firstTime) {
+            let popup = Popup()
+            popup.makeToast(self,"Dica!", investment.descricao,position: .center, image: nil)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func showInfo(_ sender: Any) {
+        if(investmentInfoPopup.alpha == 0){
+            UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
+                self.investmentInfoPopup.alpha = 1
+                //self.objMoreView.hidden = false
+                // Show view with animation
+            }, completion: nil)
+            let image = UIImage(named: "cancel")
+            infoButton.setImage(image, for: UIControlState.normal)
+        }
+        else {
+            UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
+                self.investmentInfoPopup.alpha = 0
+                //self.objMoreView.hidden = false
+                // Show view with animation
+            }, completion: nil)
+            let image = UIImage(named: "info")
+            infoButton.setImage(image, for: UIControlState.normal)
+        }
+        
+    }
+    
+    @IBAction func investmentSliderChange(_ sender: Any) {
+        invMoney = Double(investmentSlider.value)
+        currentMoney.text = "$ \(Int(invMoney))"
+        
+    }
     
     @IBAction func investGoBack(_ sender: Any) {
         //TODO
         dismiss(animated: true, completion: nil)
     }
     
-    
-    @IBAction func addMoney(_ sender: Any) {
-        if((invMoney + 100) < money){
-            invMoney += 100
-            currentMoney.text = "$ \(Int(invMoney))"
-        }else{
-            makeToast("Dica!", "Lembre de nunca investir tudo que tem, você tem contas para pagar no fim do mês!")
-            invMoney = money
-            currentMoney.text = "$ \(Int(invMoney))"
-        }
-    }
-    
-    @IBAction func takeMoney(_ sender: Any) {
-        if((invMoney - 100) >= 0){
-            invMoney -= 100
-            currentMoney.text = "$ \(Int(invMoney))"
-        }else{
-            invMoney = 0
-            currentMoney.text = "$ \(Int(invMoney))"
-        }
-    }
-    
-    func makeToast(_ title:String,_ text:String){
-        var style = ToastStyle()
-        //style.activitySize = size
-        style.displayShadow = true
-        style.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        ToastManager.shared.style = style
-        self.view.makeToast(text,duration: 3.0, position: .center, title: title, image: nil, completion: { didTap in
-            
-        })
-    }
+
 }
