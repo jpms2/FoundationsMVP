@@ -20,6 +20,8 @@
 		1098D1ED20A0A35E0004BD4A /* gamePropUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1098D1EC20A0A35E0004BD4A /* gamePropUITests.swift */; };
 		10A9BBF520A0ED8C008B2C9B /* Investment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A9BBF420A0ED8C008B2C9B /* Investment.swift */; };
 		10C0815420A9F05A003E12DF /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0815320A9F05A003E12DF /* Popup.swift */; };
+		2143CDED20ACDB74008B2680 /* coins_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2143CDEC20ACDB74008B2680 /* coins_sound.wav */; };
+		2143CDEF20ACDBB1008B2680 /* levelup_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2143CDEE20ACDBB1008B2680 /* levelup_sound.wav */; };
 		2164EB6620AC66E00065F4C0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2164EB6520AC66E00065F4C0 /* Error.swift */; };
 		D06AB275D8F56FE43F9AAD83 /* Pods_gameProp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17BF40E1E0C3828D3D32371A /* Pods_gameProp.framework */; };
 		FC49E8F6370169164D3EF7E9 /* Pods_gamePropUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4778D96123C53828314DE1F /* Pods_gamePropUITests.framework */; };
@@ -63,6 +65,8 @@
 		10A9BBF420A0ED8C008B2C9B /* Investment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Investment.swift; sourceTree = "<group>"; };
 		10C0815320A9F05A003E12DF /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		17BF40E1E0C3828D3D32371A /* Pods_gameProp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gameProp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2143CDEC20ACDB74008B2680 /* coins_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coins_sound.wav; sourceTree = "<group>"; };
+		2143CDEE20ACDBB1008B2680 /* levelup_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = levelup_sound.wav; sourceTree = "<group>"; };
 		2164EB6520AC66E00065F4C0 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		21705DEC82320545FB78E00C /* Pods-gamePropTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gamePropTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-gamePropTests/Pods-gamePropTests.debug.xcconfig"; sourceTree = "<group>"; };
 		27C775B6F298E574CFE82448 /* Pods-gamePropUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gamePropUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-gamePropUITests/Pods-gamePropUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 		1098D1C020A0A35C0004BD4A = {
 			isa = PBXGroup;
 			children = (
+				2143CDEE20ACDBB1008B2680 /* levelup_sound.wav */,
+				2143CDEC20ACDB74008B2680 /* coins_sound.wav */,
 				1098D1CB20A0A35C0004BD4A /* gameProp */,
 				1098D1E020A0A35E0004BD4A /* gamePropTests */,
 				1098D1EB20A0A35E0004BD4A /* gamePropUITests */,
@@ -291,6 +297,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2143CDEF20ACDBB1008B2680 /* levelup_sound.wav in Resources */,
+				2143CDED20ACDB74008B2680 /* coins_sound.wav in Resources */,
 				1098D1D720A0A35D0004BD4A /* LaunchScreen.storyboard in Resources */,
 				1098D1D420A0A35D0004BD4A /* Assets.xcassets in Resources */,
 				1098D1D220A0A35C0004BD4A /* Main.storyboard in Resources */,

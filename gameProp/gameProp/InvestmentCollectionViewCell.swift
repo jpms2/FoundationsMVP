@@ -12,7 +12,9 @@ class InvestmentCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var rendimento: UILabel!
+    @IBOutlet weak var rendimentoLabel: UILabel!
     @IBOutlet weak var nome: UILabel!
     @IBOutlet weak var investimento: UILabel!
+    @IBOutlet weak var investimentoLabel: UILabel!
     @IBOutlet weak var lockImg: UIImageView!
 }

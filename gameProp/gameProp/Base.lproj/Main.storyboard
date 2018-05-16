@@ -91,15 +91,17 @@
                                         <connections>
                                             <outlet property="image" destination="k1L-Jp-Sb7" id="aMO-lA-6lF"/>
                                             <outlet property="investimento" destination="j0z-vv-Tt4" id="GMU-YS-1qw"/>
+                                            <outlet property="investimentoLabel" destination="GJ8-80-tiU" id="dN8-lM-19w"/>
                                             <outlet property="lockImg" destination="P7N-wS-ubi" id="Yhg-EW-QTw"/>
                                             <outlet property="nome" destination="Ro5-6o-FsR" id="xUU-pv-128"/>
                                             <outlet property="rendimento" destination="Blx-jV-r2C" id="xfQ-Qo-LFi"/>
+                                            <outlet property="rendimentoLabel" destination="Yvd-JM-s5H" id="gnc-QF-WpZ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5p-q8-7FT">
-                                <rect key="frame" x="26" y="197" width="320" height="315"/>
+                                <rect key="frame" x="26" y="179" width="320" height="315"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Click" image="coins"/>
                                 <connections>
@@ -151,6 +153,7 @@
                         <outlet property="clickButton" destination="d5p-q8-7FT" id="78B-Fw-Nq3"/>
                         <outlet property="closePopup" destination="fGV-W4-u0N" id="rJZ-mg-gQH"/>
                         <outlet property="contaCorrenteLabel" destination="ERX-04-Rg5" id="JCi-TR-aLT"/>
+                        <outlet property="contaLabel" destination="ERX-04-Rg5" id="RaV-Qk-J8g"/>
                         <outlet property="investmentsCollection" destination="Yfw-YZ-Z7w" id="HSX-4a-aoR"/>
                         <outlet property="moneyLabel" destination="F37-Ak-Ief" id="pIx-s0-U3l"/>
                         <outlet property="moneyView" destination="t6d-f3-Txs" id="MGS-Dv-SxA"/>
@@ -265,7 +268,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Descrição do investimento" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aW3-Ng-F3t">
                                         <rect key="frame" x="21" y="22" width="277" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -284,7 +287,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.041681021149214015" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -296,6 +299,7 @@
                         <outlet property="infoButton" destination="nHr-O9-lY4" id="i3c-eQ-a6X"/>
                         <outlet property="infoHowToInvest" destination="6TX-YF-Kd8" id="hjz-yc-19x"/>
                         <outlet property="infoText" destination="DXe-75-FNI" id="IaM-ba-oVf"/>
+                        <outlet property="infoTime" destination="C9G-RW-JHv" id="9fp-pO-9Wk"/>
                         <outlet property="investmentInfoPopup" destination="gJM-JP-O8t" id="vWT-iG-z2g"/>
                         <outlet property="investmentName" destination="HOP-kR-E2v" id="HIn-XL-cYU"/>
                         <outlet property="investmentSlider" destination="3if-JM-bix" id="yrW-Pu-fu3"/>

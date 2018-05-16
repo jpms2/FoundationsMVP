@@ -40,4 +40,8 @@ class Error: NSObject {
         
         return totalPetroleo/totalInvestido >= 4/5
     }
+    
+    static func aleatorio() -> Bool{
+        return drand48() > 0.95
+    }
 }

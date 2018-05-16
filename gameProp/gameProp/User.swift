@@ -59,20 +59,20 @@ Calculo do rendimento-> Fatores do mercado, depende de cada empresa.
 Se acoes te interessam, procure uma corretora de valores, ela será a ponte entre voce e a bolsa de valores.
 """
     override init(){
-        let petromil = Investment("Petromil","bloqpetromil", 0.69, 0.0,true,acoesDesc,acoesAprenda)
+        let petromil = Investment("Petromil","bloqpetromil", 2.06, 0.0,true,acoesDesc,acoesAprenda)
         petromil.firstTime = false
-        let concha = Investment("Concha","bloqconcha", 0.69, 0.0,true,acoesDesc,acoesAprenda)
+        let concha = Investment("Concha","bloqconcha", 2.31, 0.0,true,acoesDesc,acoesAprenda)
         concha.firstTime = false
-        let gasobras = Investment("Gasobras","bloqgasobras", 0.69, 0.0,true,acoesDesc,acoesAprenda)
+        let gasobras = Investment("Gasobras","bloqgasobras", 1.99, 0.0,true,acoesDesc,acoesAprenda)
         gasobras.firstTime = false
-        let transair = Investment("TransAir","transar", 0.69, 0.0,true,acoesDesc,acoesAprenda)
+        let transair = Investment("TransAir","transar", 2.13, 0.0,true,acoesDesc,acoesAprenda)
         transair.firstTime = false
         investments = [
-            Investment("Poupança","desbloqpoupanca", 1.0, 0.0,false,poupancaDesc,poupancaAprenda),
-            Investment("LCI","bloqlci", 0.22, 0.0,false,lciDesc,lciAprenda),
-            Investment("CDB","bloqcdbcdi", 1.0, 0.0,false,cdbDesc,cdbAprenda),
-            Investment("Tesouro Direto (IPCA)","Tesouro Direto", "bloqtesouro", 0.12, 0.0,false,tesouroDesc,tesouroAprenda),
-            Investment("Medcare","bloqmedcare", 0.69, 0.0,true,acoesDesc,acoesAprenda),
+            Investment("Poupança","desbloqpoupanca", 0.5, 0.0,false,poupancaDesc,poupancaAprenda),
+            Investment("LCI","bloqlci", 0.497, 0.0,false,lciDesc,lciAprenda),
+            Investment("CDB","bloqcdbcdi", 0.494, 0.0,false,cdbDesc,cdbAprenda),
+            Investment("Tesouro Direto (IPCA)","Tesouro Direto", "bloqtesouro", 0.507, 0.0,false,tesouroDesc,tesouroAprenda),
+            Investment("Medcare","bloqmedcare", 1.84, 0.0,true,acoesDesc,acoesAprenda),
             petromil,
             concha,
             gasobras,

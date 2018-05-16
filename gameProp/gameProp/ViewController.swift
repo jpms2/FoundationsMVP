@@ -8,6 +8,7 @@
 
 import UIKit
 import Toast_Swift
+import AVFoundation
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -18,6 +19,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @IBOutlet weak var contaCorrenteLabel: UILabel!
     @IBOutlet weak var clickButton: UIButton!
+    @IBOutlet weak var contaLabel: UILabel!
     
     @IBOutlet weak var moneyLabel: UILabel!
     @IBOutlet weak var investmentsCollection: UICollectionView!
@@ -25,8 +27,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var money = 0.0
     var clickedPos = 0
     var user = User()
-    var errorVar = false
-    var errorPetr = false
+    var errorVarTime = false
+    var errorPetrTime = false
+    var errorTransAirTime = false
+    var errorMedcareTime = false
+    
+    var coinSound = Bundle.main.path(forResource: "coins_sound", ofType: "wav")
+    var levelupSound = Bundle.main.path(forResource: "levelup_sound", ofType: "wav")
+    var coinPlayer = AVAudioPlayer()
+    var levelupPlayer = AVAudioPlayer()
     
     func initValues(){
         investmentsCollection.delegate = self
@@ -37,10 +46,28 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         investments = user.investments
         
         initTimers()
+        initAudioPlayers()
         
         //test()
+        let color = UIColor(red: 30.0/255.0, green: 80.0/255.0, blue: 100.0/255.0, alpha: 1.0)
         moneyLabel.text = "$ \(Int(money))"
+        moneyLabel.textColor = color
+        contaLabel.textColor = color
     }
+    
+    func initAudioPlayers(){
+        do {
+            coinPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: coinSound!))
+            levelupPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: levelupSound!))
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }
+        catch{
+            print(error)
+        }
+        
+    }
+    
     
     func setupMoneyDesign(){
         moneyView.layer.borderWidth = 2.0
@@ -113,6 +140,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func tryNextLevel() {
         if(investments[user.level].rendido >= user.objectives[user.level]){
             user.updateLevel()
+            levelupPlayer.play()
             dalePopup()
         }
     }
@@ -161,6 +189,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.rendimento.text = "\(String(format: "%.2f", invest.rendimento))%"
         cell.nome.text = invest.nomeAbreviado
         
+        if(invest.tipoVariavel){
+            let colorVariavel = UIColor(red: 30.0/255.0, green: 80.0/255.0, blue: 100.0/255.0, alpha: 1.0)
+            cell.nome.textColor = colorVariavel
+            cell.rendimentoLabel.textColor = colorVariavel
+            cell.investimentoLabel.textColor = colorVariavel
+            cell.investimento.textColor = colorVariavel
+            
+        }
+        else{
+            let colorVariavel = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            cell.nome.textColor = colorVariavel
+            cell.rendimentoLabel.textColor = colorVariavel
+            cell.investimentoLabel.textColor = colorVariavel
+            cell.investimento.textColor = colorVariavel
+            
+        }
+        
         if invest.locked {
             cell.lockImg.isHidden = false
             cell.lockImg.image = invest.tipoVariavel ? UIImage(named: "cadeadoazul") : UIImage(named: "cadeadobranco")
@@ -195,7 +240,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
             Para passar de nível é necessário investir $ \(user.objectives[user.level]) em \(investments[user.level].nomeAbreviado)
             Atualmente você possui
-            $ \(investments[user.level].rendido) rendido.
+            $ \(Int(investments[user.level].rendido)) rendido.
             """
             showPopup(desc, 203, 217)
         }
@@ -214,6 +259,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBAction func ClickedArea(_ sender: Any) {
         money += 1
         moneyLabel.text = "$ \(Int(money))"
+        coinPlayer.play()
+        animateButton()
+    }
+    
+    func animateButton(){
+        UIView.animate(withDuration: 0.2, animations: {
+            self.clickButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)},
+               completion: { _ in UIView.animate(withDuration: 0.2){
+                self.clickButton.transform = CGAffineTransform.identity
+                
+                }
+        })
     }
     
     @IBAction func unwindToThisView(segue: UIStoryboardSegue){
@@ -260,10 +317,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func checkErrors(){
         let errorVariavel = Error.variavel(investments)
         let errorPetroleo = Error.petroleo(investments)
+        let errorTransAir = Error.aleatorio()
+        let errorMedcare = Error.aleatorio()
         var desc = ""
         var investimentos:[Investment] = []
         if errorVariavel {
-            errorVar = true
+            errorVarTime = true
             desc = """
             Uma forte crise na bolsa de valores acabou de acontecer e todos que investiram em ações perderam todo seu dinheiro.
             
@@ -277,7 +336,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
         }
         else if errorPetroleo {
-            errorPetr = true
+            errorPetrTime = true
             desc = """
             Crise no Oriente médio. A distribuição de petróleo no mundo foi prejudicada e empresas que dependiam disso estão à beira da falência.
             
@@ -285,6 +344,34 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             """
             for inv in investments {
                 if(inv.nome == "Concha" || inv.nome == "Petromil" || inv.nome == "Gasobras"){
+                    investimentos.append(inv)
+                }
+            }
+        }
+        else if (errorTransAir && user.level >= 4) {
+            errorTransAirTime = true
+            desc = """
+            Um avião acaba de cair no triângulo das bermudas! Por conta do acidente a maioria dos acionistas venderam suas ações e a empresa está próxima da falência
+            
+            Dica: Nunca invista a maior parte de seu dinheiro na mesma empresa
+            divida bem seus investimentos
+            """
+            for inv in investments {
+                if inv.nome == "Medcare" {
+                    investimentos.append(inv)
+                }
+            }
+        }
+        else if (errorMedcare && user.level >= 8) {
+            errorMedcareTime = true
+            desc = """
+            Uma mulher desconhecida acaba de roubar cinco bebês da maternidade, deixando os investidores receosos
+            
+            Dica: Nunca invista a maior parte de seu dinheiro na mesma empresa
+            divida bem seus investimentos
+            """
+            for inv in investments {
+                if inv.nome == "Medcare" {
                     investimentos.append(inv)
                 }
             }
@@ -308,16 +395,30 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @objc func resetRendimentoInvestimentos() {
         var investimentos:[Investment] = []
-        if errorVar {
+        if errorVarTime{
             for inv in investments {
                 if inv.tipoVariavel {
                     investimentos.append(inv)
                 }
             }
         }
-        else if errorPetr {
+        else if errorPetrTime {
             for inv in investments {
                 if(inv.nome == "Concha" || inv.nome == "Petromil" || inv.nome == "Gasobras"){
+                    investimentos.append(inv)
+                }
+            }
+        }
+        else if errorTransAirTime {
+            for inv in investments {
+                if(inv.nome == "TransAir"){
+                    investimentos.append(inv)
+                }
+            }
+        }
+        else if errorMedcareTime {
+            for inv in investments {
+                if(inv.nome == "Medcare"){
                     investimentos.append(inv)
                 }
             }

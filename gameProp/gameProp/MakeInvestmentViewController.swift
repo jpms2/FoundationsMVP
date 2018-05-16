@@ -13,6 +13,7 @@ class MakeInvestmentViewController: UIViewController {
     
     @IBOutlet weak var infoText: UILabel!
     @IBOutlet weak var infoHowToInvest: UILabel!
+    @IBOutlet weak var infoTime: UILabel!
     
     @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var investmentInfoPopup: UIView!
@@ -27,13 +28,15 @@ class MakeInvestmentViewController: UIViewController {
     var money = 0.0
     var arrPos = 0
     let user = User()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         // Do any additional setup after loading the view.
-        investmentYeld.text = "\(String(format: "%.2f", investment.rendimento))%"
+        investmentYeld.text = "\(String(format: "%.2f", investment.rendimento)) %"
         investmentName.text = "\(investment.nome)"
+        infoTime.text = "\(investment.tipoVariavel ? user.tempoRendimentoVariavel : user.tempoRendimentoFixo) segundos"
         invMoney = investment.investido + investment.rendido
         currentMoney.text = "$ \(Int(invMoney))"
         
@@ -48,6 +51,8 @@ class MakeInvestmentViewController: UIViewController {
         investmentInfoPopup.alpha = 0
         infoText.text = "\(investment.descricao)"
         infoHowToInvest.text = "\(investment.aprenda)"
+        investmentInfoPopup.layer.borderWidth = 2.0
+        investmentInfoPopup.layer.borderColor = UIColor(red: 65.0/255.0, green: 187.0/255.0, blue: 217.0/255.0, alpha: 1.0).cgColor
     }
     
     func arrangeBarraInitialPosSlider(){
@@ -82,6 +87,7 @@ class MakeInvestmentViewController: UIViewController {
         if(investmentInfoPopup.alpha == 0){
             UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
                 self.investmentInfoPopup.alpha = 1
+                self.investmentName.alpha = 0.3
                 //self.objMoreView.hidden = false
                 // Show view with animation
             }, completion: nil)
@@ -91,6 +97,7 @@ class MakeInvestmentViewController: UIViewController {
         else {
             UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
                 self.investmentInfoPopup.alpha = 0
+                self.investmentName.alpha = 1
                 //self.objMoreView.hidden = false
                 // Show view with animation
             }, completion: nil)
