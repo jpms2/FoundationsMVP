@@ -36,6 +36,7 @@ class Investment: NSObject {
         self.aprenda = aprenda
         self.tempoRendimento = tempoRendimento
     }
+    
     init(_ nome:String,_ nomeAbreviado:String, _ image:String,_ rendimento:Double,_ investido:Double, _ tipoVariavel:Bool,_ descricao:String,_ aprenda:String,_ tempoRendimento :Int) {
         self.nome = nome
         self.nomeAbreviado = nomeAbreviado
@@ -48,16 +49,23 @@ class Investment: NSObject {
         self.aprenda = aprenda
         self.tempoRendimento = tempoRendimento
     }
+    
     override init(){
-        nome = ""
-        nomeAbreviado = ""
-        image = ""
-        rendimento = 0
-        investido = 0
+        self.nome = ""
+        self.nomeAbreviado = ""
+        self.image = ""
+        self.rendimento = 0
+        self.investido = 0
         self.tipoVariavel = false
         self.rendido = 0
         self.tempoRendimento = 0
         
+    }
+    
+    @objc public func creditInvestment() {
+        if(!self.locked){
+            self.rendido += (self.investido + self.rendido)  * (self.rendimento/100)
+        }
     }
     
 }

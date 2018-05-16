@@ -29,7 +29,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         money = user.money
         investments = user.investments
         
-        
         initTimers()
         
         popupView.alpha = 0
@@ -40,11 +39,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func initTimers(){
         for investment in investments {
-            let fn : (() -> Void) = {
-                self.creditInvestment(investment)
-                
-            }
-            timer(investment.tempoRendimento,  #selector(fn))
+            timer(investment.tempoRendimento,  #selector(investment.creditInvestment))
         }
         
         timer(1, #selector(updateRendimento))
@@ -61,8 +56,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     
-    func timer(_ interval:Int,_ selector: Selector){
-        Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: selector, userInfo: nil, repeats: true)
+    func timer( _ interval: Int, _ selector: Selector){
+        Timer.scheduledTimer(timeInterval: TimeInterval(interval), target: self, selector: selector, userInfo: nil, repeats: true)
     }
     
     func tryNextLevel() {
@@ -104,14 +99,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         //infoButton.setImage(image, for: UIControlState.normal)
     }
     
-
-    @objc func creditInvestment(_ investment :Investment){
-        if(!investment.locked){
-            investment.rendido += (investment.investido + investment.rendido)  * (investment.rendimento/100)
-        }
-        investmentsCollection.reloadData()
-    }
-    
     @objc func updateRendimento(){
         for investment in investments {
             if( investment.tipoVariavel && !investment.locked){
@@ -124,9 +111,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         tryNextLevel()
     }
-    
-    
-
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -212,7 +196,43 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         moneyLabel.text = "$ \(Int(money))"
         investmentsCollection.reloadData()
         
+        checkErrors()
+        
     }
+    
+    func checkErrors(){
+        let errorVariavel = Error.variavel(investments)
+        let errorPetroleo = Error.petroleo(investments)
+        var desc = ""
+        if errorVariavel {
+            desc = """
+            Uma forte crise na bolsa de valores acabou de acontecer e todos que investiram em ações perderam todo seu dinheiro.
+            
+            Dica: Nunca invista na bolsa mais do que você está disposto a perder.
+            """
+        }
+        else if errorPetroleo {
+            desc = """
+            Crise no Oriente médio. A distribuição de petróleo no mundo foi prejudicada e empresas que dependiam disso estão à beira da falência.
+            
+            Dica: Nunca invista a maioria do seu dinheiro em empresas do mesmo setor.
+            """
+        }
+        if errorPetroleo || errorVariavel {
+        popupText.frame.size = CGSize(width: popupText.frame.width, height: 94)
+        popupView.frame.size = CGSize(width: popupView.frame.width, height: 103)
+
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
+            self.popupView.alpha = 1
+            self.closePopup.alpha = 1
+            self.popupText.text = desc
+            //self.objMoreView.hidden = false
+            // Show view with animation
+        }, completion: nil)
+        }
+    }
+    
+    
     
     
     @IBAction func onClosePopup(_ sender: Any) {
