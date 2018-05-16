@@ -30,7 +30,7 @@ class MakeInvestmentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         // Do any additional setup after loading the view.
         investmentYeld.text = "\(String(format: "%.2f", investment.rendimento))%"
         investmentName.text = "\(investment.nome)"

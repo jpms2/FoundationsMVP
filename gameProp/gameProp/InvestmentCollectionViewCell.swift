@@ -14,4 +14,5 @@ class InvestmentCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var rendimento: UILabel!
     @IBOutlet weak var nome: UILabel!
     @IBOutlet weak var investimento: UILabel!
+    @IBOutlet weak var lockImg: UIImageView!
 }

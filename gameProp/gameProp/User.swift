@@ -59,20 +59,20 @@ Calculo do rendimento-> Fatores do mercado, depende de cada empresa.
 Se acoes te interessam, procure uma corretora de valores, ela será a ponte entre voce e a bolsa de valores.
 """
     override init(){
-        let petromil = Investment("Petromil","petromil", 0.69, 0.0,true,acoesDesc,acoesAprenda)
+        let petromil = Investment("Petromil","bloqpetromil", 0.69, 0.0,true,acoesDesc,acoesAprenda)
         petromil.firstTime = false
-        let concha = Investment("Concha","concha", 0.69, 0.0,true,acoesDesc,acoesAprenda)
+        let concha = Investment("Concha","bloqconcha", 0.69, 0.0,true,acoesDesc,acoesAprenda)
         concha.firstTime = false
-        let gasobras = Investment("Gasobras","gasobras", 0.69, 0.0,true,acoesDesc,acoesAprenda)
+        let gasobras = Investment("Gasobras","bloqgasobras", 0.69, 0.0,true,acoesDesc,acoesAprenda)
         gasobras.firstTime = false
         let transair = Investment("TransAir","transar", 0.69, 0.0,true,acoesDesc,acoesAprenda)
         transair.firstTime = false
         investments = [
-            Investment("Poupança","moneyPig", 1.0, 0.0,false,poupancaDesc,poupancaAprenda),
-            Investment("LCI","LCI", 0.22, 0.0,false,lciDesc,lciAprenda),
-            Investment("CDB","CDB_CDI", 1.0, 0.0,false,cdbDesc,cdbAprenda),
-            Investment("Tesouro Direto (IPCA)","Tesouro Direto", "tesouro", 0.12, 0.0,false,tesouroDesc,tesouroAprenda),
-            Investment("Medcare","medcare", 0.69, 0.0,true,acoesDesc,acoesAprenda),
+            Investment("Poupança","desbloqpoupanca", 1.0, 0.0,false,poupancaDesc,poupancaAprenda),
+            Investment("LCI","bloqlci", 0.22, 0.0,false,lciDesc,lciAprenda),
+            Investment("CDB","bloqcdbcdi", 1.0, 0.0,false,cdbDesc,cdbAprenda),
+            Investment("Tesouro Direto (IPCA)","Tesouro Direto", "bloqtesouro", 0.12, 0.0,false,tesouroDesc,tesouroAprenda),
+            Investment("Medcare","bloqmedcare", 0.69, 0.0,true,acoesDesc,acoesAprenda),
             petromil,
             concha,
             gasobras,
@@ -99,6 +99,7 @@ Na renda fixa se tem previsão de quanto renderá seu investimento. Já na renda
     func updateLevel(){
         level += 1
         investments[level].locked = false
+        investments[level].image = "des\(investments[level].image)"
     }
     
     let tempoRendimentoVariavel = 1

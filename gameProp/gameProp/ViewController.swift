@@ -11,10 +11,13 @@ import Toast_Swift
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    @IBOutlet weak var moneyView: UIView!
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var popupText: UILabel!
     @IBOutlet weak var closePopup: UIButton!
     
+    @IBOutlet weak var contaCorrenteLabel: UILabel!
+    @IBOutlet weak var clickButton: UIButton!
     
     @IBOutlet weak var moneyLabel: UILabel!
     @IBOutlet weak var investmentsCollection: UICollectionView!
@@ -28,18 +31,29 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func initValues(){
         investmentsCollection.delegate = self
         investmentsCollection.dataSource = self
+        setupMoneyDesign()
+        setupPopupDesign()
         money = user.money
         investments = user.investments
         
         initTimers()
         
+        //test()
+        moneyLabel.text = "$ \(Int(money))"
+    }
+    
+    func setupMoneyDesign(){
+        moneyView.layer.borderWidth = 2.0
+        moneyView.layer.borderColor = UIColor(red: 65.0/255.0, green: 187.0/255.0, blue: 217.0/255.0, alpha: 1.0).cgColor
+        moneyView.layer.cornerRadius = 20
+    }
+    
+    func setupPopupDesign(){
         popupView.alpha = 0
         closePopup.alpha = 0
         popupView.layer.cornerRadius = 20
-        
-        
-        test()
-        moneyLabel.text = "$ \(Int(money))"
+        popupView.layer.borderWidth = 2.0
+        popupView.layer.borderColor = UIColor(red: 65.0/255.0, green: 187.0/255.0, blue: 217.0/255.0, alpha: 1.0).cgColor
     }
     
     func test(){
@@ -104,35 +118,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func dalePopup() {
-        var desc = "Agora você desbloqueou um novo investimento!"
         
         if(user.level == 2){
-            desc = user.ipcaSelic
-            popupText.frame.size = CGSize(width: popupText.frame.width, height: 366)
-            popupView.frame.size = CGSize(width: popupView.frame.width, height: 374)
+            showPopup(user.ipcaSelic, 366, 374)
         }
         else if (user.level == 4){
-            desc = user.rendaCompare
-            popupText.frame.size = CGSize(width: popupText.frame.width, height: 203)
-            popupView.frame.size = CGSize(width: popupView.frame.width, height: 217)
+            showPopup(user.rendaCompare, 366, 374)
         }
         else{
-            popupText.frame.size = CGSize(width: popupText.frame.width, height: 94)
-            popupView.frame.size = CGSize(width: popupView.frame.width, height: 103)
-            
+            let desc = "Agora você desbloqueou um novo investimento!"
+            showPopup(desc, 94, 103)
         }
-        //let popup = Popup()
-        //popup.makeToast(self, "Parabéns, você passou de nível!!", desc, position: .center, image: nil)
-    
-        UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
-            self.popupView.alpha = 1
-            self.closePopup.alpha = 1
-            self.popupText.text = desc
-            //self.objMoreView.hidden = false
-            // Show view with animation
-        }, completion: nil)
-        //let image = UIImage(named: "cancel")
-        //infoButton.setImage(image, for: UIControlState.normal)
     }
     
     @objc func updateRendimento(){
@@ -157,18 +153,27 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let invest = investments[indexPath.row]
         let cell:InvestmentCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "investmentCell", for: indexPath) as! InvestmentCollectionViewCell
-        let image = UIImage(named: investments[indexPath.row].image)
+        let image = UIImage(named: invest.image)
         cell.image.image = image
-        cell.investimento.text = "$ \(Int(investments[indexPath.row].investido) + Int(investments[indexPath.row].rendido))"
-        cell.rendimento.text = "\(String(format: "%.2f", investments[indexPath.row].rendimento))%"
-        cell.nome.text = investments[indexPath.row].nomeAbreviado
+        cell.investimento.text = "$ \(Int(invest.investido) + Int(invest.rendido))"
+        cell.rendimento.text = "\(String(format: "%.2f", invest.rendimento))%"
+        cell.nome.text = invest.nomeAbreviado
+        
+        if invest.locked {
+            cell.lockImg.isHidden = false
+            cell.lockImg.image = invest.tipoVariavel ? UIImage(named: "cadeadoazul") : UIImage(named: "cadeadobranco")
+        }
+        else {
+            cell.lockImg.isHidden = true
+        }
         cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).withAlphaComponent(0.0)
         
-        if(investments[indexPath.row].rendimento > 0){
+        if(invest.rendimento > 0){
             cell.rendimento.textColor = UIColor.green
         }
-        else if (investments[indexPath.row].rendimento < 0){
+        else if (invest.rendimento < 0){
             cell.rendimento.textColor = UIColor.red
         }
         else {
@@ -183,6 +188,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if(!investments[clickedPos].locked){
             performSegue(withIdentifier: "mainToInvestments", sender: nil)
             
+        }else{
+
+            let desc = """
+            Este nível está bloqueado!
+
+            Para passar de nível é necessário investir $ \(user.objectives[user.level]) em \(investments[user.level].nomeAbreviado)
+            Atualmente você possui
+            $ \(investments[user.level].rendido) rendido.
+            """
+            showPopup(desc, 203, 217)
         }
    }
     
@@ -207,7 +222,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let investment = investments[makeInvestment.arrPos]
         investment.firstTime = false
         
-        let invMoney = makeInvestment.invMoney
+        let invMoney = Double(Int(makeInvestment.invMoney))
         
         let rendaAntigaInvestimento = investment.investido + investment.rendido
         
@@ -216,11 +231,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             money += retirar
             if(retirar < investment.investido){
                 investment.investido -= retirar
+                
+                investment.investido = (investment.rendido <= 0) ? 0 : investment.investido
             }
             else{
                 retirar -= investment.investido
                 investment.investido = 0
                 investment.rendido -= retirar
+                
+                investment.rendido = (investment.rendido <= 0) ? 0 : investment.rendido
             }
         }
         else{ //colocou dinheiro
@@ -278,7 +297,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         popupView.frame.size = CGSize(width: popupView.frame.width, height: 217)
 
         UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
-            self.popupView.alpha = 1
+            self.popupView.alpha = 0.9
             self.closePopup.alpha = 1
             self.popupText.text = desc
             //self.objMoreView.hidden = false
@@ -314,6 +333,36 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     
+    func showPopup(_ text:String,_ textHeight:CGFloat, _ viewHeight: CGFloat){
+        popupText.frame.size = CGSize(width: popupText.frame.width, height: textHeight)
+        popupView.frame.size = CGSize(width: popupView.frame.width, height: viewHeight)
+        
+        
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
+            self.investmentsCollection.alpha = 0.3
+            self.clickButton.alpha = 0.3
+            self.moneyView.alpha = 0.3
+            self.contaCorrenteLabel.alpha = 0.3
+            self.popupView.alpha = 1
+            self.closePopup.alpha = 1
+            self.popupText.text = text
+        }, completion: nil)
+    
+    }
+    @IBAction func onClosePopup(_ sender: Any) {
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
+            self.investmentsCollection.alpha = 1
+            self.clickButton.alpha = 1
+            self.moneyView.alpha = 1
+            self.contaCorrenteLabel.alpha = 1
+            self.popupView.alpha = 0
+            self.closePopup.alpha = 0
+        }, completion: nil)
+        
+    }
+    
+    
+
     
     func diminuirRendimento(_ investments: [Investment]) {
         for investment in investments{
@@ -321,12 +370,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    @IBAction func onClosePopup(_ sender: Any) {
-        UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
-            self.popupView.alpha = 0
-            self.closePopup.alpha = 0
-        }, completion: nil)
-    }
+
+    
     
     
 }
