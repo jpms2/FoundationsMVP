@@ -100,4 +100,8 @@ Na renda fixa se tem previsão de quanto renderá seu investimento. Já na renda
         level += 1
         investments[level].locked = false
     }
+    
+    
+
+    
 }

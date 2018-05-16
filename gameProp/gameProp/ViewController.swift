@@ -29,15 +29,27 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         money = user.money
         investments = user.investments
         
-        timer(3, #selector(creditRendaFixa))
-        timer(1, #selector(creditRendaVariavel))
-        timer(1, #selector(updateRendimento))
+        
+        initTimers()
         
         popupView.alpha = 0
         closePopup.alpha = 0
         popupView.layer.cornerRadius = 20
         money = user.money
     }
+    
+    func initTimers(){
+        for investment in investments {
+            let fn : (() -> Void) = {
+                self.creditInvestment(investment)
+                
+            }
+            timer(investment.tempoRendimento,  #selector(fn))
+        }
+        
+        timer(1, #selector(updateRendimento))
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,26 +104,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         //infoButton.setImage(image, for: UIControlState.normal)
     }
     
-    @objc func creditRendaFixa(){
-        for investment in investments{
-            if(!investment.tipoVariavel && !investment.locked){
-                investment.rendido += (investment.investido + investment.rendido) * (investment.rendimento/100)
-            }
+
+    @objc func creditInvestment(_ investment :Investment){
+        if(!investment.locked){
+            investment.rendido += (investment.investido + investment.rendido)  * (investment.rendimento/100)
         }
         investmentsCollection.reloadData()
     }
-    @objc func creditRendaVariavel(){
-        for investment in investments{
-            if(investment.tipoVariavel && !investment.locked){
-                investment.rendido += (investment.investido + investment.rendido)  * (investment.rendimento/100)
-                if(investment.nome == "Medcare"){
-                    //print("\(investment.investido) - \(investment.rendido) - \(investment.rendimento/100)")
-                }
-            }
-            
-        }
-        investmentsCollection.reloadData()
-    }
+    
     @objc func updateRendimento(){
         for investment in investments {
             if( investment.tipoVariavel && !investment.locked){
