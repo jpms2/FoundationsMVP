@@ -20,7 +20,7 @@ class Error: NSObject {
             }
             totalInvestido += investment.investido
         }
-        
+        print("investidoVariavel \(investidoVariavel) - totalInvestido \(totalInvestido)")
         return investidoVariavel/totalInvestido >= 3/4
         
     }
@@ -38,6 +38,6 @@ class Error: NSObject {
             }
         }
         
-        return totalPetroleo/totalInvestido >= 3/4
+        return totalPetroleo/totalInvestido >= 4/5
     }
 }

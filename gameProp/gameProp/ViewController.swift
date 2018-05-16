@@ -22,6 +22,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var money = 0.0
     var clickedPos = 0
     var user = User()
+    var errorVar = false
+    var errorPetr = false
     
     func initValues(){
         investmentsCollection.delegate = self
@@ -34,17 +36,51 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         popupView.alpha = 0
         closePopup.alpha = 0
         popupView.layer.cornerRadius = 20
-        money = user.money
+        
+        
+        test()
+        moneyLabel.text = "$ \(Int(money))"
     }
     
-    func initTimers(){
+    func test(){
+        money = 1000
+        
         for investment in investments {
-            timer(investment.tempoRendimento,  #selector(investment.creditInvestment))
+            investment.locked = false
         }
         
+    }
+    
+    
+    func initTimers(){
+        timer(user.tempoRendimentoVariavel,  #selector(timerRendimentoVariavel))
+        timer(user.tempoRendimentoFixo,  #selector(timerRendimentoFixo))
         timer(1, #selector(updateRendimento))
     }
     
+    @objc func timerRendimentoVariavel(){
+        for investment in investments {
+            if(investment.tipoVariavel && !investment.locked){
+                investment.rendido += (investment.investido + investment.rendido)  * (investment.rendimento/100)
+                if(investment.rendido <= 0){
+                    investment.investido += investment.rendido
+                    investment.rendido = 0
+                }
+            }
+        }
+    }
+    
+    @objc func timerRendimentoFixo(){
+        for investment in investments {
+            if(!investment.tipoVariavel && !investment.locked){
+                investment.rendido += (investment.investido + investment.rendido)  * (investment.rendimento/100)
+                if(investment.rendido <= 0){
+                    investment.investido += investment.rendido
+                    investment.rendido = 0
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -196,6 +232,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         moneyLabel.text = "$ \(Int(money))"
         investmentsCollection.reloadData()
         
+        print("\(investment.nome) -> \(investment.investido) \(investment.rendido)")
+        
         checkErrors()
         
     }
@@ -204,23 +242,40 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let errorVariavel = Error.variavel(investments)
         let errorPetroleo = Error.petroleo(investments)
         var desc = ""
+        var investimentos:[Investment] = []
         if errorVariavel {
+            errorVar = true
             desc = """
             Uma forte crise na bolsa de valores acabou de acontecer e todos que investiram em ações perderam todo seu dinheiro.
             
             Dica: Nunca invista na bolsa mais do que você está disposto a perder.
             """
+            for inv in investments {
+                if inv.tipoVariavel {
+                    investimentos.append(inv)
+                }
+            }
+            
         }
         else if errorPetroleo {
+            errorPetr = true
             desc = """
             Crise no Oriente médio. A distribuição de petróleo no mundo foi prejudicada e empresas que dependiam disso estão à beira da falência.
             
             Dica: Nunca invista a maioria do seu dinheiro em empresas do mesmo setor.
             """
+            for inv in investments {
+                if(inv.nome == "Concha" || inv.nome == "Petromil" || inv.nome == "Gasobras"){
+                    investimentos.append(inv)
+                }
+            }
         }
+        diminuirRendimento(investimentos)
+        Timer.scheduledTimer(timeInterval: TimeInterval(user.tempoVoltaErro), target: self, selector: #selector(resetRendimentoInvestimentos), userInfo: nil, repeats: false)
+        
         if errorPetroleo || errorVariavel {
-        popupText.frame.size = CGSize(width: popupText.frame.width, height: 94)
-        popupView.frame.size = CGSize(width: popupView.frame.width, height: 103)
+        popupText.frame.size = CGSize(width: popupText.frame.width, height: 203)
+        popupView.frame.size = CGSize(width: popupView.frame.width, height: 217)
 
         UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
             self.popupView.alpha = 1
@@ -232,8 +287,39 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    @objc func resetRendimentoInvestimentos() {
+        var investimentos:[Investment] = []
+        if errorVar {
+            for inv in investments {
+                if inv.tipoVariavel {
+                    investimentos.append(inv)
+                }
+            }
+        }
+        else if errorPetr {
+            for inv in investments {
+                if(inv.nome == "Concha" || inv.nome == "Petromil" || inv.nome == "Gasobras"){
+                    investimentos.append(inv)
+                }
+            }
+        }
+        
+        for inv in investimentos {
+            inv.rendimento = user.investments.filter({ (investimento:Investment) -> Bool in
+                inv.nome == investimento.nome
+            })[0].initRendimento
+        }
+        
+        investmentsCollection.reloadData()
+        
+    }
     
     
+    func diminuirRendimento(_ investments: [Investment]) {
+        for investment in investments{
+            investment.rendimento = -5.0
+        }
+    }
     
     @IBAction func onClosePopup(_ sender: Any) {
         UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
