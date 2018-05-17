@@ -14,14 +14,15 @@ class MakeInvestmentViewController: UIViewController {
     @IBOutlet weak var infoText: UILabel!
     @IBOutlet weak var infoHowToInvest: UILabel!
     @IBOutlet weak var infoTime: UILabel!
+    @IBOutlet weak var tempoRendimentoImg: UIImageView!
+    @IBOutlet weak var rendimentoImg: UIImageView!
     
-    @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var investmentInfoPopup: UIView!
-    @IBOutlet weak var investmentName: UILabel!
     @IBOutlet weak var investmentYeld: UILabel!
     @IBOutlet weak var currentMoney: UILabel!
     @IBOutlet weak var investmentSlider: UISlider!
     @IBOutlet weak var barraInitialPosSlider: UIView!
+    @IBOutlet weak var okButton: UIButton!
     
     var investment:Investment = Investment()
     var invMoney = 0.0
@@ -34,25 +35,38 @@ class MakeInvestmentViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         // Do any additional setup after loading the view.
-        investmentYeld.text = "\(String(format: "%.2f", investment.rendimento)) %"
-        investmentName.text = "\(investment.nome)"
-        infoTime.text = "\(investment.tipoVariavel ? user.tempoRendimentoVariavel : user.tempoRendimentoFixo) segundos"
-        invMoney = investment.investido + investment.rendido
-        currentMoney.text = "$ \(Int(invMoney))"
         
+        
+        tempoRendimentoImg.image = tempoRendimentoImg.image!.withRenderingMode(.alwaysTemplate)
+        tempoRendimentoImg.tintColor = user.azulEscuro
+        
+        rendimentoImg.image = rendimentoImg.image!.withRenderingMode(.alwaysTemplate)
+        rendimentoImg.tintColor = user.azulEscuro
+        
+        investmentYeld.text = "\(String(format: "%.2f", investment.rendimento)) %"
+        infoTime.text = "\(investment.tipoVariavel ? user.tempoRendimentoVariavel : user.tempoRendimentoFixo)s"
+        invMoney = investment.investido + investment.rendido
+        currentMoney.text = "$ \(Int(invMoney)).00"
         handlePopupFirstTime()
         setSlider()
         arrangeBarraInitialPosSlider()
         handleInvestmentPopup()
         
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.backgroundColor = user.azulClaro
+        self.title = self.investment.nome
+        self.navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "question"), style: .plain, target: self, action: #selector(self.showInfo)), animated: false)
     }
+    
     func handleInvestmentPopup(){
         investmentInfoPopup.layer.cornerRadius = 20
         investmentInfoPopup.alpha = 0
         infoText.text = "\(investment.descricao)"
         infoHowToInvest.text = "\(investment.aprenda)"
         investmentInfoPopup.layer.borderWidth = 2.0
-        investmentInfoPopup.layer.borderColor = UIColor(red: 65.0/255.0, green: 187.0/255.0, blue: 217.0/255.0, alpha: 1.0).cgColor
+        investmentInfoPopup.layer.borderColor = user.azulClaro.cgColor
     }
     
     func arrangeBarraInitialPosSlider(){
@@ -83,33 +97,25 @@ class MakeInvestmentViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func showInfo(_ sender: Any) {
+    @IBAction func showInfo() {
         if(investmentInfoPopup.alpha == 0){
             UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
                 self.investmentInfoPopup.alpha = 1
-                self.investmentName.alpha = 0.3
-                //self.objMoreView.hidden = false
-                // Show view with animation
             }, completion: nil)
-            let image = UIImage(named: "cancel")
-            infoButton.setImage(image, for: UIControlState.normal)
+            self.navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "cancel"), style: .plain, target: self, action: #selector(self.showInfo)), animated: false)
         }
         else {
             UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
                 self.investmentInfoPopup.alpha = 0
-                self.investmentName.alpha = 1
-                //self.objMoreView.hidden = false
-                // Show view with animation
             }, completion: nil)
-            let image = UIImage(named: "info")
-            infoButton.setImage(image, for: UIControlState.normal)
+            self.navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "question"), style: .plain, target: self, action: #selector(self.showInfo)), animated: false)
         }
         
     }
     
     @IBAction func investmentSliderChange(_ sender: Any) {
         invMoney = Double(investmentSlider.value)
-        currentMoney.text = "$ \(Int(invMoney))"
+        currentMoney.text = "$ \(Int(invMoney)).00"
         
     }
     

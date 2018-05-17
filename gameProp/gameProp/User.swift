@@ -65,7 +65,7 @@ Se acoes te interessam, procure uma corretora de valores, ela será a ponte entr
         concha.firstTime = false
         let gasobras = Investment("Gasobras","bloqgasobras", 1.99, 0.0,true,acoesDesc,acoesAprenda)
         gasobras.firstTime = false
-        let transair = Investment("TransAir","transar", 2.13, 0.0,true,acoesDesc,acoesAprenda)
+        let transair = Investment("TransAir","bloqTransAir", 2.13, 0.0,true,acoesDesc,acoesAprenda)
         transair.firstTime = false
         investments = [
             Investment("Poupança","desbloqpoupanca", 0.5, 0.0,false,poupancaDesc,poupancaAprenda),
@@ -106,5 +106,10 @@ Na renda fixa se tem previsão de quanto renderá seu investimento. Já na renda
     let tempoRendimentoFixo = 5
     
     let tempoVoltaErro = 5
+    
+    let azulEscuro = UIColor(red: 30.0/255.0, green: 80.0/255.0, blue: 100.0/255.0, alpha: 1.0)
+    let azulMedio = UIColor(red: 0.0, green: 122.0/255.0, blue: 1, alpha: 1.0)
+    let azulClaro = UIColor(red: 65.0/255.0, green: 187.0/255.0, blue: 217.0/255.0, alpha: 1.0)
+    
     
 }

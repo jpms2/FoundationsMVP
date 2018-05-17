@@ -15,7 +15,7 @@ class Popup: NSObject {
     override init(){
         
         style.displayShadow = true
-        style.backgroundColor = UIColor(red: 30.0/255.0, green: 80.0/255.0, blue: 100.0/255.0, alpha: 1.0)
+        style.backgroundColor = User().azulMedio
     }
     
     func makeToast(_ viewController:UIViewController, _ text:String, posX:Int, posY:Int,image: UIImage?){

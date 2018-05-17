@@ -49,7 +49,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         initAudioPlayers()
         
         //test()
-        let color = UIColor(red: 30.0/255.0, green: 80.0/255.0, blue: 100.0/255.0, alpha: 1.0)
+        let color = user.azulEscuro
         moneyLabel.text = "$ \(Int(money))"
         moneyLabel.textColor = color
         contaLabel.textColor = color
@@ -71,7 +71,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func setupMoneyDesign(){
         moneyView.layer.borderWidth = 2.0
-        moneyView.layer.borderColor = UIColor(red: 65.0/255.0, green: 187.0/255.0, blue: 217.0/255.0, alpha: 1.0).cgColor
+        moneyView.layer.borderColor = user.azulClaro.cgColor
         moneyView.layer.cornerRadius = 20
     }
     
@@ -80,7 +80,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         closePopup.alpha = 0
         popupView.layer.cornerRadius = 20
         popupView.layer.borderWidth = 2.0
-        popupView.layer.borderColor = UIColor(red: 65.0/255.0, green: 187.0/255.0, blue: 217.0/255.0, alpha: 1.0).cgColor
+        popupView.layer.borderColor = user.azulClaro.cgColor
     }
     
     func test(){
@@ -123,13 +123,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initValues()
-        
-        let popup = Popup()
-        popup.makeToast(self, "Olá, bem vindo!", user.startText, position: .center, image: nil)
         
     }
     
@@ -190,7 +193,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.nome.text = invest.nomeAbreviado
         
         if(invest.tipoVariavel){
-            let colorVariavel = UIColor(red: 30.0/255.0, green: 80.0/255.0, blue: 100.0/255.0, alpha: 1.0)
+            let colorVariavel = user.azulEscuro
             cell.nome.textColor = colorVariavel
             cell.rendimentoLabel.textColor = colorVariavel
             cell.investimentoLabel.textColor = colorVariavel
