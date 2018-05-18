@@ -11,11 +11,15 @@ import Toast_Swift
 
 class Popup: NSObject {
     var style = ToastStyle()
-    
+    var errorPopup = false
     override init(){
         
         style.displayShadow = true
-        style.backgroundColor = User().azulMedio
+        if (errorPopup) {
+            style.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+        }else{
+            style.backgroundColor = User().azulMedio
+        }
     }
     
     func makeToast(_ viewController:UIViewController, _ text:String, posX:Int, posY:Int,image: UIImage?){

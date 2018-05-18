@@ -105,7 +105,7 @@ Na renda fixa se tem previsão de quanto renderá seu investimento. Já na renda
     let tempoRendimentoVariavel = 1
     let tempoRendimentoFixo = 5
     
-    let tempoVoltaErro = 5
+    let tempoVoltaErro = 15
     
     let azulEscuro = UIColor(red: 30.0/255.0, green: 80.0/255.0, blue: 100.0/255.0, alpha: 1.0)
     let azulMedio = UIColor(red: 0.0, green: 122.0/255.0, blue: 1, alpha: 1.0)

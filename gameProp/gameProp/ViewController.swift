@@ -85,11 +85,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func test(){
         money = 1000
-        
-        for investment in investments {
-            investment.locked = false
-        }
-        
+        moneyLabel.text = "$ \(Int(money))"
     }
     
     
@@ -466,7 +462,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
-
+    @IBAction func clickTest(_ sender: Any) {
+        test()
+    }
+    
     
     func diminuirRendimento(_ investments: [Investment]) {
         for investment in investments{

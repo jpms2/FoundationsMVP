@@ -144,6 +144,16 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6KG-nE-1Vp">
+                                <rect key="frame" x="5" y="67" width="49" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="test">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="62C-bt-RIk"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -238,7 +248,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4C-Af-2wp">
-                                <rect key="frame" x="162" y="580" width="50" height="50"/>
+                                <rect key="frame" x="163" y="580" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.25490196079999999" green="0.73333333329999995" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" image="check"/>
@@ -308,7 +318,6 @@
         <!--Navigation Controller-->
         <scene sceneID="4jf-YD-ux3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WLO-rU-XAD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fbX-sA-KNI" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="am2-7n-ib0">
@@ -325,6 +334,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="5Mw-qU-2jO"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WLO-rU-XAD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="100.29985007496252"/>
         </scene>
