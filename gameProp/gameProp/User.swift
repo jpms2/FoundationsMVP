@@ -18,45 +18,45 @@ Investimento em renda fixa mais popular devido a sua segurança e praticidade.
 """
     let poupancaAprenda =
 """
-Para investir na poupança basta ir a qualquer agencia e abrir sua conta.
+Para investir na poupança basta ir em qualquer agência e abrir sua conta.
 
-Calculo do rendimento-> Se a taxa SELIC estiver maior que 8,5% - 0,5 ao mês + TR
-Se a taxa SELIC estiver menor ou igual a 8,5%- 70% da selim + TR
+O rendimento será de 0,5% ao mês mais o TR, se a taxa SELIC estiver maior que 8,5% e, será de 70% da SELIC mais o TR nos casos em que a taxa SELIC estiver menor ou igual a 8,5%.
 """
     
     let lciDesc = """
 Invista no setor agropecuário ou imobiliário e ajude a economia.
 """
     let lciAprenda = """
-Os bancos são responsáveis por vender as letras de credito desse tipo de investimento.
+Os bancos são responsáveis por vender as letras de crédito desse tipo de investimento, ou seja, é ele quem faz o intermédio
+das transações.
 """
     
     let cdbDesc = """
-(CDB-IPCA) Com este tipo de investimento voce empresta dinheiro a bancos para que eles possam emprestar a outras pessoas.
+Com este tipo de investimento você empresta dinheiro aos bancos para que eles possam direcioná-lo a outras pessoas.
 """
     
     let cdbAprenda = """
 A maioria dos bancos oferece este tipo de investimento, caso tenha interesse, procure seu gerente.
 
-Calculo do rendimento-> IPCA + TF (taxa fixada)
+O rendimento é calculado somando-se a IPCA e a taxa fixada.
 """
     
     let tesouroDesc = """
-(Tesouro-IPCA) O que voce acha de emprestar seu dinheiro ao governo? Sim, voce pode fazer isso investindo no tesouro direto.
+O que você acha de emprestar seu dinheiro ao governo? Isso pode ser feito investindo no tesouro direto.
 """
     let tesouroAprenda = """
 Procure uma corretora de valores e entre nos detalhes desse investimento.
 
-Calculo do rendimento-> IPCA + TF (taxa fixada)
+O rendimento é calculado somando-se a IPCA e a taxa fixada.
 """
     
     let acoesDesc = """
- Este investimento constitui em comprar pequenas partes do capital social de uma empresa.
+Este investimento constitui em comprar pequenas partes do capital social de uma empresa.
 """
     let acoesAprenda = """
-Calculo do rendimento-> Fatores do mercado, depende de cada empresa.
+O rendimento depende de vários fatores do mercado, variando de acordo com cada empresa.
 
-Se acoes te interessam, procure uma corretora de valores, ela será a ponte entre voce e a bolsa de valores.
+Se o mundo das ações te interessa, procure uma corretora de valores, ela será a ponte entre você e a bolsa de valores.
 """
     override init(){
         let petromil = Investment("Petromil","bloqpetromil", 2.06, 0.0,true,acoesDesc,acoesAprenda)
@@ -84,14 +84,14 @@ Se acoes te interessam, procure uma corretora de valores, ela será a ponte entr
     let startText = "texto bem vindo"
     
     let ipcaSelic = """
-Saber o que significa essas siglas é o primeiro passo para ser um bom investidor.
-SELIC é a taxa básica de juros da economia, quando voce quer pegar um empréstimo é esta taxa que vai ser levada em conta para o calculo dos juros. Ela é responsável por controlar a inflação(IPCA). Sempre que a inflação sobe, o governo eleva a SELIC para que o consumo diminua e a inflação volte ao normal.
+Existem algumas siglas essenciais nesse contexto de investimentos e finanças, e uma delas é a SELIC, taxa básica de juros da economia.
+Quando você deseja fazer um empréstimo é essa a taxa que será utilizada para o cálculo dos juros. Ela é responsável por controlar a inflação, também chamada de IPCA, sendo elevada sempre que a inflação subir, para que o consumo diminua e a inflação volte ao normal.
 """
     let rendaCompare = """
-Na renda fixa se tem previsão de quanto renderá seu investimento. Já na renda variável não há nenhuma garantia, tudo depende dos fatores do mercado, que são bastante imprevisíveis.
+Na renda fixa existe uma previsão de quanto renderá o seu investimento. Já na renda variável não há nenhuma garantia, tudo depende dos fatores do mercado, que são bastante imprevisíveis.
 """
     
-    var objectives:[Double] = [5, 10, 20, 50, 100, 500, 1200, 2500, 6000, 1500]
+    var objectives:[Double] = [5, 10, 20, 50, 100, 500, 1200, 2500, 6000, 15000]
     
     var money = 0.0
     var level = 0

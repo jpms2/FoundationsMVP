@@ -153,7 +153,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             showPopup(user.rendaCompare, 366, 374)
         }
         else{
-            let desc = "Agora você desbloqueou um novo investimento!"
+            let desc = "Parabéns, seu dinheiro investido em \(investments[user.level-1].nome) rendeu $ \(user.objectives[user.level-1])\nAgora você desbloqueou \(investments[user.level].nome)!"
             showPopup(desc, 94, 103)
         }
     }
@@ -237,7 +237,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let desc = """
             Este nível está bloqueado!
 
-            Para passar de nível é necessário investir $ \(user.objectives[user.level]) em \(investments[user.level].nomeAbreviado)
+            Para passar de nível é necessário ter uma quantia rendida de $ \(user.objectives[user.level]) em \(investments[user.level].nomeAbreviado)
             Atualmente você possui
             $ \(Int(investments[user.level].rendido)) rendido.
             """
@@ -314,8 +314,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func checkErrors(){
-        let errorVariavel = Error.variavel(investments)
-        let errorPetroleo = Error.petroleo(investments)
+        let errorVariavel = Error.variavel(investments,money)
+        let errorPetroleo = Error.petroleo(investments,money)
         let errorTransAir = Error.aleatorio()
         let errorMedcare = Error.aleatorio()
         var desc = ""
@@ -382,6 +382,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         popupText.frame.size = CGSize(width: popupText.frame.width, height: 203)
         popupView.frame.size = CGSize(width: popupView.frame.width, height: 217)
 
+        popupView.layer.borderColor = UIColor.red.cgColor
         UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
             self.popupView.alpha = 0.9
             self.closePopup.alpha = 1
@@ -436,7 +437,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func showPopup(_ text:String,_ textHeight:CGFloat, _ viewHeight: CGFloat){
         popupText.frame.size = CGSize(width: popupText.frame.width, height: textHeight)
         popupView.frame.size = CGSize(width: popupView.frame.width, height: viewHeight)
-        
+        popupView.layer.borderColor = user.azulClaro.cgColor
         
         UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
             self.investmentsCollection.alpha = 0.3

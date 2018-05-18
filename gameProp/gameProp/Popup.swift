@@ -30,7 +30,7 @@ class Popup: NSObject {
     }
     func makeToast(_ viewController:UIViewController,_ title:String,_ text:String, position :ToastPosition,image: UIImage?){
         ToastManager.shared.style = style
-        viewController.view.makeToast(text,duration: 3.0, position: position, title: title, image: image, completion: { didTap in
+        viewController.view.makeToast(text,duration: 10.0, position: position, title: title, image: image, completion: { didTap in
             
         })
     }

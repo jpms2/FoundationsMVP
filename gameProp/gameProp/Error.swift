@@ -10,7 +10,7 @@ import UIKit
 
 class Error: NSObject {
     
-    static func variavel(_ investments :[Investment]) -> Bool {
+    static func variavel(_ investments :[Investment], _ money: Double) -> Bool {
         var totalInvestido = 0.0
         var investidoVariavel = 0.0
         
@@ -21,11 +21,11 @@ class Error: NSObject {
             totalInvestido += investment.investido
         }
         print("investidoVariavel \(investidoVariavel) - totalInvestido \(totalInvestido)")
-        return investidoVariavel/totalInvestido >= 3/4
+        return investidoVariavel/(totalInvestido + money) >= 3/4
         
     }
     
-    static func petroleo(_ investments :[Investment]) -> Bool {
+    static func petroleo(_ investments :[Investment], _ money: Double) -> Bool {
         var totalInvestido = 0.0
         var totalPetroleo = 0.0
         
@@ -38,7 +38,7 @@ class Error: NSObject {
             }
         }
         
-        return totalPetroleo/totalInvestido >= 4/5
+        return totalPetroleo/(totalInvestido + money) >= 4/5
     }
     
     static func aleatorio() -> Bool{
